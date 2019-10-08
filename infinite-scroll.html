@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .base {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: oldlace;
+            margin: 0;
+            padding: 0;
+        }
+        .small {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background-color: aquamarine;
+            margin: 5px;
+            border: brown 1px solid;
+        }
+        .medium {
+            position: absolute;
+            width: 400px;
+            height: 600px;
+            background-color: aliceblue;
+            margin: 5px;
+            border: brown 1px solid;
+        }
+        .large {
+            position: absolute;
+            width: 400px;
+            height: 800px;
+            background-color: lavender;
+            margin: 5px;
+            border: brown 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="base">
+    </div>
+    <script>
+        const small = '<div class="small"></div>';
+        const medium = '<div class="medium"></div>';
+        const large = '<div class="large"></div>';
+
+        const elemWidth = '400px';
+        const smallElemHeight = '400px';
+        const mediumElemHeight = '600px';
+        const largeElemHeight = '800px';
+        const spacing = '10px'
+        const elemArr = [];
+        const maxCount = 7;
+
+        let availblTopLeft = { top: '0px', left: '0px' };
+
+        for (let i = 0; i < maxCount; i++) {
+            document.querySelector('.base').innerHTML += `<div id="${i}" class="${i % 2 === 0 ? 'small' : i % 3 === 0 ? 'medium' : 'large'}"></div>`;
+            setTimeout(() => elemArr.push(document.getElementById(i)));
+        }
+
+        setTimeout(setElementTopLeft.bind(this, elemArr), 2000);
+
+        // function getAvailableTopLeft(prevELem, elem) {
+        //     const prevBottom = addPixels(premElem.style.top, premElem.style.height);
+        //     if (prevBottom < elem)
+        // }
+
+        function getHeightByType(elem) {
+
+            const cl = elem.className;
+            let h = 0;
+
+            if(cl === 'small') {
+                h = smallElemHeight;
+            } else if (cl === 'medium') {
+                h = mediumElemHeight;
+            } else {
+                h = largeElemHeight;
+            }
+            // console.log(elem, h);
+            return h;
+        }
+        function addPixels(a, b) {
+            console.log('addPixels.....', a, b);
+            return (+(a.replace('px', '')) + +(b.replace('px', ''))) + 'px';
+        }
+
+        function comparePixels(a, b) {
+            // console.log(a, b);
+            return (+(b.replace('px', '')) - +(a.replace('px', ''))) >= 0;
+        }
+
+        function equalPixels(a, b) {
+            console.log('equalPixels....', a, b);
+            return (+(b.replace('px', '')) - +(a.replace('px', ''))) === 0;
+        }
+
+        function timesPixels(times, pixels) {
+            return ((+(pixels.replace('px', '')) * times)+'px');
+        }
+
+        function setElementTopLeft(elemArr) {
+            let gotMinHgt = false;
+            elemArr.forEach((elem, i) => {
+                if (i === 0) {
+                    elem.style.top = 0;
+                    elem.style.left = 0;
+                    availblTopLeft.left = elemWidth;
+                } else if (i > 0 && i <= 3) {
+                    elem.style.top = 0;
+                    elem.style.left = availblTopLeft.left;
+                    availblTopLeft.left = addPixels(availblTopLeft.left, elemWidth);
+                    if(equalPixels(availblTopLeft.left, timesPixels(4, elemWidth))) {
+                        availblTopLeft.left = 0;
+                    }
+                    console.log('if....', availblTopLeft.top, getHeightByType(elem), largeElemHeight, i, elem.className);
+                    if (!comparePixels(largeElemHeight, getHeightByType(elem)) && !gotMinHgt) {
+
+                        availblTopLeft.top = getHeightByType(elem);
+                        gotMinHgt = true;
+                    } else {
+                        console.log('elsif......', availblTopLeft.top, largeElemHeight, getHeightByType(elem));
+
+                    }
+                    // console.log(i, availblTopLeft.left, availblTopLeft.top, elem);
+                } else {
+                    console.log('else......', elem, availblTopLeft, getHeightByType(elem));
+                    elem.style.top = availblTopLeft.top;
+                    elem.style.left = availblTopLeft.left;
+                    availblTopLeft.left = addPixels(availblTopLeft.left, elemWidth);
+
+
+
+
+                    // availblTopLeft.left = addPixels(availblTopLeft.left, elemWidth);
+                    // availblTopLeft.top = availblTopLeft.top < getHeightByType(elem) ? getHeightByType(elem) : availblTopLeft.top;
+                }
+            });
+        }
+
+        function addElementToPage() {
+
+        }
+
+        function removeElementFromPage() {
+
+        }
+    </script>
+
+</body>
+</html>

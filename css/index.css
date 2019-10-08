@@ -1,0 +1,62 @@
+#div1 {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    animation: rotateMe 300ms linear 0s infinite alternate;
+    border-radius: 50%;
+    transform-origin: center;
+    position: absolute;
+}
+#div2 {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    animation: rotateMe 1s linear 0s infinite alternate;
+    border-radius: 80%;
+}
+#div3 {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    animation: rotateMe 1s linear 0s infinite alternate;
+    border-radius: 70%;
+}
+#div4 {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    animation: rotateMe 1s linear 0s infinite alternate;
+    border-radius: 60%;
+}
+#div5 {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    animation: rotateMe 1s linear 0s infinite alternate;
+    border-radius: 50%;
+}
+#div6 {
+    width: 100px;
+    height: 100px;
+    background-color: cornflowerblue;
+    animation: rotateMe 1s linear 0s infinite alternate;
+    border-radius: 40%;
+}
+
+@keyframes rotateMe {
+    from {
+        /*transform: rotate3d(0, 0, 0, 0deg);*/
+        width: 0;
+        height: 0;
+        top: 50px;
+        left: 50px;
+    }
+
+    to {
+        /*transform: rotate3d(0, 1, 0, 180deg);*/
+        width: 100px;
+        height: 100px;
+        top: 0;
+        left: 0;
+    }
+}
